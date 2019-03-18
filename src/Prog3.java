@@ -31,11 +31,13 @@ public class Prog3 {
 		//System.out.println("-------------------==============----------------");
         //--------------------------------------------
 	    
+	    
 	    //test for file argument
 	    if (args.length == 0) {
 	        System.err.println("please specify an input file");
 	        System.exit(-1);
 	    }
+	    
 	    
 	    //read data from the file
 	    ArrayList<Integer> numbers = null;
@@ -70,25 +72,25 @@ public class Prog3 {
         startTime = System.nanoTime();
 	    
 	    //Step 1
-	    numbers_array = columnSort(numbers_array);
+        numbers_array = QuickSort.sort(numbers_array);
 	    
 	    //Step 2
 	    numbers_array = step2Transpose(numbers_array);
 	    
 	    //Step 3
-        numbers_array = columnSort(numbers_array);
+	    numbers_array = QuickSort.sort(numbers_array);
 	    
         //Step 4
         numbers_array = step4Transpose(numbers_array);
         
         //Step 5
-        numbers_array = columnSort(numbers_array);
+        numbers_array = QuickSort.sort(numbers_array);
         
         //Step 6
         numbers_array = step6Insert(numbers_array);
         
         //Step 7
-        numbers_array = columnSort(numbers_array);
+        numbers_array = QuickSort.sort(numbers_array);
         
         //Step 8
         numbers_array = step8Remove(numbers_array);
@@ -104,9 +106,10 @@ public class Prog3 {
             for (int row = 0; row < R; row++)
                 System.out.println(numbers_array[row][column]);
 
+        /*
         //Deprecated code for testing the array as it's being processed
         //--------------------------------------------
-        /*
+        
 	    for (int x = 0; x < numbers_array.length; x++) {
 	        for (int y = 0; y < numbers_array[0].length; y++)
 	            System.out.print(numbers_array[x][y] + " ");
@@ -114,8 +117,9 @@ public class Prog3 {
 	    }
 	    System.out.printf("Rows: %d   Cols: %d\n",numbers_array.length,
 	            numbers_array[0].length);
-	    */
+	    
         //--------------------------------------------
+         */
 	}
 	
 	/**
@@ -204,12 +208,9 @@ public class Prog3 {
 	    return transposed_array;
 	}
 	
-	/**
-	 * use bubble sort on every column of an array
-	 * 
-	 * @param array original array
-	 * @return sorted array (sort in place)
-	 */
+	
+	/*
+	 * Deprecated sort method
 	private static int[][] columnSort(int[][] array) {
 	    
 	    //go row by row
@@ -234,6 +235,7 @@ public class Prog3 {
 	        }
 	    return array;
 	}
+	*/
 	
 	/**
 	 * Establish an array from a list using max valid factor to determine
@@ -274,7 +276,7 @@ public class Prog3 {
 	            S = size_factor_stepper.getFactor();
 	        }
 	    }
-
+	    
 	    //Assign new array and return it
 	    int[][] return_array = new int[R][S];
 	    for (int step = 0; step < N; step++)
