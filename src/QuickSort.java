@@ -1,25 +1,50 @@
-
+/**
+ * Quick Sort algorithm that processes columns independently
+ * 
+ * @author Phillip Benoit
+ *
+ */
 public class QuickSort {
     
+    /**
+     * array to sort
+     */
     static private int[][] a;
     
+    /**
+     * current column index
+     */
     private static int column_index;
     
+    /**
+     * private constructor to prevent instantiation
+     */
     private QuickSort() {
         
     }
     
+    /**
+     * Entry point for algorithm
+     * 
+     * @param b array to sort
+     * @return sorted array
+     */
     static public int[][] sort(int[][] b) {
         a = b;
-        permuteColumns();
+        
+        //run each column through the sort
+        for (column_index = 0; column_index < a[0].length; column_index++)
+            qSort(0, a.length-1);
+
         return a;
     }
     
-    static private void permuteColumns() {
-        for (column_index = 0; column_index < a[0].length; column_index++)
-            qSort(0, a.length-1);
-    }
-    
+    /**
+     * Recursive sorting algorithm
+     * 
+     * @param start first element to examine
+     * @param end last element to examine
+     */
     static private void qSort(int start, int end) {
         
         //find middle element
@@ -44,14 +69,23 @@ public class QuickSort {
         if ( end-middle_index > 1) qSort(middle_index+1, end);
     }
     
+    /**
+     * Calculates midpoint between two numbers
+     * 
+     * @param start first number
+     * @param end last number
+     * @return midpoint (average)
+     */
     static private int findMiddle(int start, int end) {return (start + end) / 2;}
     
     /**
+     * Calculates index for middle value while swapping elements so that all
+     * less come before and all greater come after.
      * 
-     * @param start
-     * @param end
-     * @param value
-     * @return
+     * @param start first element to examine
+     * @param end last element to examine
+     * @param value quantity to compare
+     * @return index for middle value
      */
     static private int partition(int start, int end, int value) {
         do {
@@ -72,7 +106,7 @@ public class QuickSort {
         //do this until the start and end indices match
         } while (start < end);
         
-        //return new midpoint location
+        //return new midpoint index
         return start;
     }
     

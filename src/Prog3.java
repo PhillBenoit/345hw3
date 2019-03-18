@@ -31,13 +31,11 @@ public class Prog3 {
 		//System.out.println("-------------------==============----------------");
         //--------------------------------------------
 	    
-	    
 	    //test for file argument
 	    if (args.length == 0) {
 	        System.err.println("please specify an input file");
 	        System.exit(-1);
 	    }
-	    
 	    
 	    //read data from the file
 	    ArrayList<Integer> numbers = null;
@@ -62,6 +60,7 @@ public class Prog3 {
 	    
 	    //build number array
 	    int[][] numbers_array = makeArray(numbers);
+	    numbers.clear();
 	    
 	    //process time information
         final double BILLION = 1000000000.0;
@@ -73,13 +72,13 @@ public class Prog3 {
 	    
 	    //Step 1
         numbers_array = QuickSort.sort(numbers_array);
-	    
+        
 	    //Step 2
 	    numbers_array = step2Transpose(numbers_array);
 	    
 	    //Step 3
 	    numbers_array = QuickSort.sort(numbers_array);
-	    
+
         //Step 4
         numbers_array = step4Transpose(numbers_array);
         
@@ -99,13 +98,22 @@ public class Prog3 {
         elapsedTime = System.nanoTime() - startTime;
         seconds =  elapsedTime / BILLION;
         
-        //display n, r, s, seconds and sorted list
+        //display n, r, s, seconds
         System.out.printf("n = %d\nr = %d\ns = %d\nElapsed time = %.3f seconds."
                 + "\n", N,R,S,seconds);
-        for (int column = 0; column < S; column++)
-            for (int row = 0; row < R; row++)
-                System.out.println(numbers_array[row][column]);
-
+        //display list and check for accuracy
+        int previous = numbers_array[0][0];
+        System.out.println(previous);
+        for (int step = 1; step < N; step++) {
+            int cursor = numbers_array[step%R][step/R];
+            if (cursor < previous) {
+                System.err.println("sort did not work");
+                System.exit(-1);
+            }
+            System.out.println(cursor);
+            previous = cursor;
+        }
+        
         /*
         //Deprecated code for testing the array as it's being processed
         //--------------------------------------------
@@ -119,7 +127,7 @@ public class Prog3 {
 	            numbers_array[0].length);
 	    
         //--------------------------------------------
-         */
+        */
 	}
 	
 	/**
@@ -209,8 +217,7 @@ public class Prog3 {
 	}
 	
 	
-	/*
-	 * Deprecated sort method
+	//Deprecated sort method
 	private static int[][] columnSort(int[][] array) {
 	    
 	    //go row by row
@@ -235,7 +242,7 @@ public class Prog3 {
 	        }
 	    return array;
 	}
-	*/
+	
 	
 	/**
 	 * Establish an array from a list using max valid factor to determine
